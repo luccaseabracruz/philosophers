@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   debug.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/04 16:39:46 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/06 13:02:06 by lseabra-         ###   ########.fr       */
+/*   Created: 2026/02/06 13:00:57 by lseabra-          #+#    #+#             */
+/*   Updated: 2026/02/06 13:02:47 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
-#include "debug.h"
-#include <stdlib.h>
-#include <string.h>
+#ifndef DEBUG_H
+# define DEBUG_H
 
-int	main(int argc, char **argv)
-{
-	t_data	dt;
+# include "philosophers.h"
 
-	memset(&dt, 0, sizeof(dt));
-	if (ft_parse(argc - 1, argv + 1, &dt) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	ft_print_data(&dt);
-	return (EXIT_SUCCESS);
-}
+void	ft_print_data(t_data *dt);
+
+#endif

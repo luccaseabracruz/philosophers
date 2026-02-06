@@ -57,3 +57,4 @@ dkms.conf
 # local files
 .vscode/
 thread_tests/
+philo
