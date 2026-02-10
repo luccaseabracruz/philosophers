@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 16:46:41 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/10 16:53:56 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/10 16:55:49 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ static void	ft_eat(t_philosopher *philosopher)
 		second_fork = philosopher->left_fork;
 	}
 	pthread_mutex_lock(first_fork);
-	printf("%d %s (R)\n", philosopher->id, MSG_FORK);
+	printf("%d %s\n", philosopher->id, MSG_FORK);
 	pthread_mutex_lock(second_fork);
-	printf("%d %s (L)\n", philosopher->id, MSG_FORK);
+	printf("%d %s\n", philosopher->id, MSG_FORK);
 	philosopher->meals_counter++;
 	//TODO(): Register timestamp
 	printf("%d %s\n", philosopher->id, MSG_EAT);
