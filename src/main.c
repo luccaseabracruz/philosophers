@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 16:39:46 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/06 13:02:06 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/10 16:51:17 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 #include "debug.h"
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 int	main(int argc, char **argv)
 {
-	t_data	dt;
+	t_simulation	sim;
 
-	memset(&dt, 0, sizeof(dt));
-	if (ft_parse(argc - 1, argv + 1, &dt) == EXIT_FAILURE)
+	memset(&sim, 0, sizeof(sim));
+	if (ft_init_simulation(argc, argv, &sim) == FAILURE)
 		return (EXIT_FAILURE);
-	ft_print_data(&dt);
+	if (ft_start_simulation(&sim))
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 #    By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/03 16:37:00 by lseabra-          #+#    #+#              #
-#    Updated: 2026/02/06 12:03:07 by lseabra-         ###   ########.fr        #
+#    Updated: 2026/02/10 16:48:42 by lseabra-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,10 @@ BUILD_PATH	= build
 # Source files
 SRC = $(addprefix $(SRC_PATH)/, \
 	main.c \
+	debug.c \
+	ft_init_simulation.c \
+	ft_routine.c \
+	ft_start_simulation.c \
 	utils.c \
 )
 
