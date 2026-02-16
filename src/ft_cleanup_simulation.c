@@ -1,31 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_routine.c                                       :+:      :+:    :+:   */
+/*   ft_cleanup_simulation.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/10 16:46:41 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/14 11:15:17 by lseabra-         ###   ########.fr       */
+/*   Created: 2026/02/14 18:24:49 by lseabra-          #+#    #+#             */
+/*   Updated: 2026/02/16 08:29:56 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include <pthread.h>
-#include <stdio.h>
+#include <stdlib.h>
 
-void	*ft_routine(void *arg)
+void	ft_cleanup_forks(pthread_mutex_t *forks, int num_philosophers)
 {
-	t_philosopher	*philosopher;
+	int	i;
 
-	philosopher = (t_philosopher *)arg;
-	while (philosopher->meals_counter < philosopher->sim->meals_counter_target)
+	i = 0;
+	while (i < num_philosophers)
 	{
-		ft_take_forks(philosopher);
-		ft_eat(philosopher);
-		ft_release_forks(philosopher);
-		ft_sleep(philosopher);
-		ft_think(philosopher);
+		pthread_mutex_destroy(forks + i);
+		i++;
 	}
-	return (arg);
+	free(forks);
+}
+
+void	ft_cleanup_simulation(t_simulation *sim)
+{
+	ft_cleanup_forks(sim->forks, sim->num_philosophers);
+	pthread_mutex_destroy(&sim->print_lock);
+	free(sim->philosophers);
 }

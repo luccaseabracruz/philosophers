@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_routine.c                                       :+:      :+:    :+:   */
+/*   ft_get_timestamp.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/10 16:46:41 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/14 11:15:17 by lseabra-         ###   ########.fr       */
+/*   Created: 2026/02/10 16:57:44 by lseabra-          #+#    #+#             */
+/*   Updated: 2026/02/16 08:34:52 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-#include <pthread.h>
-#include <stdio.h>
+#include <sys/time.h>
+#include <stddef.h>
 
-void	*ft_routine(void *arg)
+long	ft_get_timestamp(t_sec_unit unit)
 {
-	t_philosopher	*philosopher;
+	struct timeval	tv;
+	long			res;
 
-	philosopher = (t_philosopher *)arg;
-	while (philosopher->meals_counter < philosopher->sim->meals_counter_target)
-	{
-		ft_take_forks(philosopher);
-		ft_eat(philosopher);
-		ft_release_forks(philosopher);
-		ft_sleep(philosopher);
-		ft_think(philosopher);
-	}
-	return (arg);
+	gettimeofday(&tv, NULL);
+	if (unit == SECONDS)
+		res = tv.tv_sec + (tv.tv_usec / 10e6);
+	else if (unit == MILISECONDS)
+		res = (tv.tv_sec * 10e3) + (tv.tv_usec / 10e3);
+	else if (unit == MICROSECONDS)
+		res = (tv.tv_sec * 10e6) + tv.tv_usec;
+	return (res);
 }

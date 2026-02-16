@@ -6,11 +6,13 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 12:24:10 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/06 12:43:07 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/14 16:52:37 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "philosophers.h"
 #include <unistd.h>
+#include <stdio.h>
 
 int	ft_strlen(char *str)
 {
@@ -68,7 +70,7 @@ int	ft_atoi(char *str)
 	return (res * sign);
 }
 
-void	ft_puterror(char *msg)
+void	ft_put_error(char *msg)
 {
 	int	len;
 
@@ -76,5 +78,22 @@ void	ft_puterror(char *msg)
 	{
 		len = ft_strlen(msg);
 		write(STDERR_FILENO, msg, len);
+	}
+}
+
+void	ft_put_message(t_philosopher *philosopher, char *msg, long *timestamp)
+{
+	long	temp;
+
+	if (!timestamp)
+	{
+		temp = ft_get_timestamp(MILISECONDS);
+		timestamp = &temp;
+	}
+	if (msg)
+	{
+		pthread_mutex_lock(&philosopher->sim->print_lock);
+		printf("%ld %d %s\n", *timestamp, philosopher->id, msg);
+		pthread_mutex_unlock(&philosopher->sim->print_lock);
 	}
 }

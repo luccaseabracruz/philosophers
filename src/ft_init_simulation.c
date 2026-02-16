@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 12:58:23 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/10 16:53:41 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/16 08:34:09 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	ft_init_forks(int num, pthread_mutex_t **forks)
 	*forks = malloc(num * sizeof(pthread_mutex_t));
 	if (!(*forks))
 	{
-		ft_puterror(ERR_MALLOC);
+		ft_put_error(ERR_MALLOC);
 		return (FAILURE);
 	}
 	i = 0;
@@ -48,6 +48,30 @@ static int	ft_init_forks(int num, pthread_mutex_t **forks)
 	return (SUCCESS);
 }
 
+static void	ft_assign_forks(t_philosopher *philosopher)
+{
+	pthread_mutex_t	*forks;
+	int				num_philosophers;
+
+	forks = philosopher->sim->forks;
+	num_philosophers = philosopher->sim->num_philosophers;
+	philosopher->left_fork = forks + (philosopher->id - 1);
+	if (philosopher->id == 1)
+		philosopher->right_fork = forks + (num_philosophers - 1);
+	else
+		philosopher->right_fork = forks + (philosopher->id - 2);
+	if (philosopher->id % 2 != 0)
+	{
+		philosopher->first_fork = philosopher->left_fork;
+		philosopher->second_fork = philosopher->right_fork;
+	}
+	else
+	{
+		philosopher->first_fork = philosopher->right_fork;
+		philosopher->second_fork = philosopher->left_fork;
+	}
+}
+
 static int	ft_init_philosophers(t_simulation *sim)
 {
 	t_philosopher	*philosophers;
@@ -56,7 +80,7 @@ static int	ft_init_philosophers(t_simulation *sim)
 	sim->philosophers = malloc(sim->num_philosophers * sizeof(t_philosopher));
 	if (!sim->philosophers)
 	{
-		ft_puterror(ERR_MALLOC);
+		ft_put_error(ERR_MALLOC);
 		return (FAILURE);
 	}
 	philosophers = sim->philosophers;
@@ -65,10 +89,8 @@ static int	ft_init_philosophers(t_simulation *sim)
 	while (i < sim->num_philosophers)
 	{
 		philosophers[i].id = i + 1;
-		philosophers[i].left_fork = sim->forks + i;
-		philosophers[i].right_fork = sim->forks;
-		philosophers[i].right_fork += (i + 1) % sim->num_philosophers;
 		philosophers[i].sim = sim;
+		ft_assign_forks(philosophers + i);
 		i++;
 	}
 	return (SUCCESS);
@@ -78,13 +100,18 @@ int	ft_init_simulation(int argc, char **argv, t_simulation *sim)
 {
 	if (argc < 5)
 	{
-		ft_puterror(ERR_MISS_ARGS);
+		ft_put_error(ERR_MISS_ARGS);
 		return (FAILURE);
 	}
 	ft_parse_rules(argv + 1, sim);
 	if (ft_init_forks(sim->num_philosophers, &sim->forks) == FAILURE)
 		return (FAILURE);
+	pthread_mutex_init(&sim->print_lock, NULL);
 	if (ft_init_philosophers(sim) == FAILURE)
+	{
+		ft_cleanup_forks(sim->forks, sim->num_philosophers);
+		pthread_mutex_destroy(&sim->print_lock);
 		return (FAILURE);
+	}
 	return (SUCCESS);
 }
