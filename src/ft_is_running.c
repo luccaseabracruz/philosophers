@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_routine.c                                       :+:      :+:    :+:   */
+/*   ft_is_running.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/10 16:46:41 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/16 18:38:41 by lseabra-         ###   ########.fr       */
+/*   Created: 2026/02/16 17:31:24 by lseabra-          #+#    #+#             */
+/*   Updated: 2026/02/16 17:58:31 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include <pthread.h>
-#include <stdio.h>
 
-void	*ft_routine(void *arg)
+void	ft_set_running(t_simulation *sim, t_bool value)
 {
-	t_philosopher	*philosopher;
+	pthread_mutex_lock(&sim->running_lock);
+	sim->running = value;
+	pthread_mutex_unlock(&sim->running_lock);
+}
 
-	philosopher = (t_philosopher *)arg;
-	while (ft_is_running(philosopher->sim))
+t_bool	ft_is_running(t_simulation *sim)
+{
+	pthread_mutex_lock(&sim->running_lock);
+	if (sim->running == FALSE)
 	{
-		ft_take_forks(philosopher);
-		if (!ft_is_running(philosopher->sim))
-			break ;
-		ft_eat(philosopher);
-		ft_release_forks(philosopher);
-		if (!ft_is_running(philosopher->sim))
-			break ;
-		ft_sleep(philosopher);
-		if (!ft_is_running(philosopher->sim))
-			break ;
-		ft_think(philosopher);
+		pthread_mutex_unlock(&sim->running_lock);
+		return (FALSE);
 	}
-	return (arg);
+	pthread_mutex_unlock(&sim->running_lock);
+	return (TRUE);
 }

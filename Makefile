@@ -6,7 +6,7 @@
 #    By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/03 16:37:00 by lseabra-          #+#    #+#              #
-#    Updated: 2026/02/14 18:32:17 by lseabra-         ###   ########.fr        #
+#    Updated: 2026/02/16 18:11:41 by lseabra-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,10 +37,11 @@ BUILD_PATH	= build
 SRC = $(addprefix $(SRC_PATH)/, \
 	main.c \
 	actions.c \
-	debug.c \
 	ft_cleanup_simulation.c \
 	ft_get_timestamp.c \
 	ft_init_simulation.c \
+	ft_is_running.c \
+	ft_monitoring_routine.c \
 	ft_routine.c \
 	ft_start_simulation.c \
 	utils.c \

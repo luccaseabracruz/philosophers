@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 18:24:49 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/16 08:29:56 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/16 17:33:07 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ void	ft_cleanup_simulation(t_simulation *sim)
 {
 	ft_cleanup_forks(sim->forks, sim->num_philosophers);
 	pthread_mutex_destroy(&sim->print_lock);
+	pthread_mutex_destroy(&sim->running_lock);
 	free(sim->philosophers);
 }

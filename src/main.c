@@ -6,12 +6,11 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 16:39:46 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/16 08:29:45 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/16 18:11:47 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-#include "debug.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -23,7 +22,7 @@ int	main(int argc, char **argv)
 	memset(&sim, 0, sizeof(sim));
 	if (ft_init_simulation(argc, argv, &sim) == FAILURE)
 		return (EXIT_FAILURE);
-	if (ft_start_simulation(&sim))
+	if (ft_start_simulation(&sim) == FAILURE)
 		return (EXIT_FAILURE);
 	ft_cleanup_simulation(&sim);
 	return (EXIT_SUCCESS);

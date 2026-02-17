@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 11:15:26 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/14 16:53:29 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/16 14:52:08 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ void	ft_release_forks(t_philosopher *philosopher)
 
 void	ft_eat(t_philosopher *philosopher)
 {
-	philosopher->last_meal_ms = ft_get_timestamp(MILISECONDS);
-	ft_put_message(philosopher, MSG_EAT, &philosopher->last_meal_ms);
+	philosopher->last_meal = ft_get_timestamp(MILISECONDS);
+	ft_put_message(philosopher, MSG_EAT, &philosopher->last_meal);
 	philosopher->meals_counter++;
-	usleep(philosopher->sim->time_to_eat * 10e3);
+	usleep(philosopher->sim->time_to_eat * 1000);
 }
 
 void	ft_sleep(t_philosopher *philosopher)
 {
 	ft_put_message(philosopher, MSG_SLEEP, NULL);
-	usleep(philosopher->sim->time_to_sleep * 10e3);
+	usleep(philosopher->sim->time_to_sleep * 1000);
 }
 
 void	ft_think(t_philosopher *philosopher)

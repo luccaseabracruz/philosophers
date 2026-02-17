@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 12:24:10 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/14 16:52:37 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/16 18:07:51 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <stdio.h>
 
-int	ft_strlen(char *str)
+static int	ft_strlen(char *str)
 {
 	int	i;
 
@@ -46,11 +46,11 @@ static int	ft_isdigit(char c)
 		return (1);
 }
 
-int	ft_atoi(char *str)
+long	ft_atol(char *str)
 {
-	int	res;
-	int	sign;
-	int	i;
+	long	res;
+	long	sign;
+	int		i;
 
 	if (!str)
 		return (0);
