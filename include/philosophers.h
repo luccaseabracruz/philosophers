@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:20:20 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/18 12:21:51 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/18 14:36:05 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ typedef struct s_simulation
 
 # define ERR_PREFIX			"ERROR"
 # define ERR_MISS_ARGS		"missing arguments"
-# define ERR_NEG_NUM		"missing arguments"
+# define ERR_MANY_ARGS		"too many arguments"
+# define ERR_NEG_NUM		"negative numbers are not permitted"
 # define ERR_MALLOC			"malloc fail ocurred"
 # define ERR_THREAD_CREATE	"thread creation fail"
 # define ERR_THREAD_JOIN	"thread join fail"

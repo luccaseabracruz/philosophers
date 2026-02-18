@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 12:58:23 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/18 12:26:10 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/18 14:36:55 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <pthread.h>
-
-static t_result	ft_parse_rules(int argc, char **args, t_simulation *sim)
-{
-	if (argc < 5)
-	{
-		ft_put_error(&sim->print_lock, NULL, ERR_MISS_ARGS);
-		return (FAILURE);
-	}
-	sim->num_philosophers = ft_atol(args[0]);
-	sim->time_to_die = ft_atol(args[1]);
-	sim->time_to_eat = ft_atol(args[2]);
-	sim->time_to_sleep = ft_atol(args[3]);
-	if (args[4])
-		sim->meals_counter_target = ft_atol(args[4]);
-	else
-		sim->meals_counter_target = -1;
-	if (sim->time_to_die < 0 || sim->time_to_eat < 0
-		|| sim->time_to_sleep < 0 || (args[4] && sim->meals_counter_target < 0))
-	{
-		ft_put_error(&sim->print_lock, NULL, ERR_NEG_NUM);
-		return (FAILURE);
-	}
-	return (SUCCESS);
-}
 
 static t_result	ft_init_forks(t_simulation *sim)
 {
@@ -108,7 +84,7 @@ static t_result	ft_init_philosophers(t_simulation *sim)
 
 t_result	ft_init_simulation(int argc, char **argv, t_simulation *sim)
 {
-	if (ft_parse_rules(argc, argv + 1, sim) != SUCCESS)
+	if (ft_parse_rules(argc, argv, sim) != SUCCESS)
 		return (FAILURE);
 	if (ft_init_forks(sim) != SUCCESS)
 		return (FAILURE);
