@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:20:20 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/18 14:36:05 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/18 14:44:59 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_result	ft_init_simulation(int argc, char **argv, t_simulation *sim);
 void		ft_set_running(t_simulation *sim, t_bool value);
 t_bool		ft_is_running(t_simulation *sim);
 void		*ft_monitoring_routine(void *arg);
+t_result	ft_parse_rules(int argc, char **argv, t_simulation *sim);
 void		*ft_routine(void *arg);
 t_result	ft_start_simulation(t_simulation *sim);
 long		ft_atol(char *str);
