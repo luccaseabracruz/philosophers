@@ -6,37 +6,13 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 12:24:10 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/18 09:26:32 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/18 14:01:31 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include <unistd.h>
 #include <stdio.h>
-
-static int	ft_strlen(char *str)
-{
-	int	i;
-
-	if (!str)
-		return (-1);
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-// int	ft_strcmp(char *s1, char *s2)
-// {
-// 	int	i;
-
-// 	if (!s1 || !s2)
-// 	return (0);
-// 	i = 0;
-// 	while (s1[i] && s2[i])
-// 	i++;
-// 	return (s1[i] - s2[i]);
-// }
 
 static int	ft_isdigit(char c)
 {
@@ -70,15 +46,18 @@ long	ft_atol(char *str)
 	return (res * sign);
 }
 
-void	ft_put_error(char *msg)
+void	ft_put_error(pthread_mutex_t *lock, char *message, char *function)
 {
-	int	len;
-
-	if (msg)
-	{
-		len = ft_strlen(msg);
-		write(STDERR_FILENO, msg, len);
-	}
+	if (!lock && !message && !function)
+		return ;
+	pthread_mutex_lock(lock);
+	if (message && function)
+		printf("%s: %s: %s\n", ERR_PREFIX, function, message);
+	else if (message)
+		printf("%s: %s\n", ERR_PREFIX, message);
+	else if (function)
+		printf("%s: %s\n", ERR_PREFIX, function);
+	pthread_mutex_unlock(lock);
 }
 
 void	ft_put_msg(t_philosopher *philosopher, char *msg, long *timestamp)

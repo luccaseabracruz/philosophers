@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 16:33:54 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/16 18:34:58 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/18 14:03:58 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,19 @@ static t_result	ft_create_threads(t_simulation *sim)
 	if (pthread_create(&sim->monitoring_thread,
 			NULL, ft_monitoring_routine, sim) != SUCCESS)
 	{
-		ft_put_error(ERR_THREAD_CREATE);
+		ft_put_error(&sim->print_lock, "ft_create_threads()",
+			ERR_THREAD_CREATE);
 		return (FAILURE);
 	}
 	i = 0;
 	while (i < sim->num_philosophers)
 	{
 		philo = sim->philosophers + i;
-		if (pthread_create(&philo->thread, NULL, ft_routine, (void *)philo)
-			!= SUCCESS)
+		if (pthread_create(&philo->thread, NULL,
+				ft_routine, (void *)philo) != SUCCESS)
 		{
-			ft_put_error(ERR_THREAD_CREATE);
+			ft_put_error(&sim->print_lock, "ft_create_threads()",
+				ERR_THREAD_CREATE);
 			return (FAILURE);
 		}
 		i++;
@@ -43,21 +45,21 @@ static t_result	ft_join_threads(t_simulation *sim)
 	t_philosopher	*philo;
 	int				i;
 
-	if (pthread_join(sim->monitoring_thread, NULL))
-	{
-		ft_put_error(ERR_THREAD_JOIN);
-		return (FAILURE);
-	}
 	i = 0;
 	while (i < sim->num_philosophers)
 	{
 		philo = sim->philosophers + i;
 		if (pthread_join(philo->thread, NULL) != SUCCESS)
 		{
-			ft_put_error(ERR_THREAD_JOIN);
+			ft_put_error(&sim->print_lock, NULL, ERR_THREAD_JOIN);
 			return (FAILURE);
 		}
 		i++;
+	}
+	if (pthread_join(sim->monitoring_thread, NULL))
+	{
+		ft_put_error(&sim->print_lock, NULL, ERR_THREAD_JOIN);
+		return (FAILURE);
 	}
 	return (SUCCESS);
 }

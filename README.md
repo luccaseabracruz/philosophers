@@ -2,6 +2,7 @@
 
 
 # TODO
-### [ ] Implement monitoring
-### [ ] Protect from negative numbers and see if a int overflow protection is needed
-### [ ] INCREMENT FT_PUT_ERROR
+### [] Implement monitoring
+####		 [] Fiz deadlock
+### [X] Protect from negative numbers and see if a int overflow protection is needed
+### [X] Refactor ft_put_error

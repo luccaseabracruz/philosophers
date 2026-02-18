@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:20:20 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/18 09:26:29 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/18 12:21:51 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void		*ft_monitoring_routine(void *arg);
 void		*ft_routine(void *arg);
 t_result	ft_start_simulation(t_simulation *sim);
 long		ft_atol(char *str);
-void		ft_put_error(char *msg);
+void		ft_put_error(pthread_mutex_t *lock, char *function, char *message);
 void		ft_put_msg(t_philosopher *philosopher, char *msg, long *timestamp);
 
 // ------------------------------- ENUMS ------------------------------- //
@@ -96,10 +96,12 @@ typedef struct s_simulation
 
 // --------------------------------- MACROS --------------------------------- //
 
-# define ERR_MISS_ARGS		"Error: missing arguments.\n"
-# define ERR_MALLOC			"Error: malloc fail ocurred.\n"
-# define ERR_THREAD_CREATE	"Error: thread creation fail.\n"
-# define ERR_THREAD_JOIN	"Error: thread join fail.\n"
+# define ERR_PREFIX			"ERROR"
+# define ERR_MISS_ARGS		"missing arguments"
+# define ERR_NEG_NUM		"missing arguments"
+# define ERR_MALLOC			"malloc fail ocurred"
+# define ERR_THREAD_CREATE	"thread creation fail"
+# define ERR_THREAD_JOIN	"thread join fail"
 
 # define MSG_FORK	"has taken a fork"
 # define MSG_EAT	"is eating"

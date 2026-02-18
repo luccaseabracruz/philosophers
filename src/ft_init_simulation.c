@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 12:58:23 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/18 11:52:22 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/18 12:26:10 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_result	ft_parse_rules(int argc, char **args, t_simulation *sim)
 {
 	if (argc < 5)
 	{
-		ft_put_error(ERR_MISS_ARGS);
+		ft_put_error(&sim->print_lock, NULL, ERR_MISS_ARGS);
 		return (FAILURE);
 	}
 	sim->num_philosophers = ft_atol(args[0]);
@@ -33,28 +33,26 @@ static t_result	ft_parse_rules(int argc, char **args, t_simulation *sim)
 	if (sim->time_to_die < 0 || sim->time_to_eat < 0
 		|| sim->time_to_sleep < 0 || (args[4] && sim->meals_counter_target < 0))
 	{
-		ft_put_error("Error: negative numbers are not allowed.\n");
+		ft_put_error(&sim->print_lock, NULL, ERR_NEG_NUM);
 		return (FAILURE);
 	}
 	return (SUCCESS);
 }
 
-static t_result	ft_init_forks(int num, pthread_mutex_t **forks)
+static t_result	ft_init_forks(t_simulation *sim)
 {
 	int	i;
 
-	if (!forks)
-		return (FAILURE);
-	*forks = malloc(num * sizeof(pthread_mutex_t));
-	if (!(*forks))
+	sim->forks = malloc(sim->num_philosophers * sizeof(pthread_mutex_t));
+	if (!sim->forks)
 	{
-		ft_put_error(ERR_MALLOC);
+		ft_put_error(&sim->print_lock, "ft_init_forks()", ERR_MALLOC);
 		return (FAILURE);
 	}
 	i = 0;
-	while (i < num)
+	while (i < sim->num_philosophers)
 	{
-		pthread_mutex_init((*forks) + i, NULL);
+		pthread_mutex_init(sim->forks + i, NULL);
 		i++;
 	}
 	return (SUCCESS);
@@ -91,7 +89,7 @@ static t_result	ft_init_philosophers(t_simulation *sim)
 	sim->philosophers = malloc(sim->num_philosophers * sizeof(t_philosopher));
 	if (!sim->philosophers)
 	{
-		ft_put_error(ERR_MALLOC);
+		ft_put_error(&sim->print_lock, "ft_init_philosophers()", ERR_MALLOC);
 		return (FAILURE);
 	}
 	philosophers = sim->philosophers;
@@ -112,7 +110,7 @@ t_result	ft_init_simulation(int argc, char **argv, t_simulation *sim)
 {
 	if (ft_parse_rules(argc, argv + 1, sim) != SUCCESS)
 		return (FAILURE);
-	if (ft_init_forks(sim->num_philosophers, &sim->forks) != SUCCESS)
+	if (ft_init_forks(sim) != SUCCESS)
 		return (FAILURE);
 	if (pthread_mutex_init(&sim->print_lock, NULL) != SUCCESS)
 	{
