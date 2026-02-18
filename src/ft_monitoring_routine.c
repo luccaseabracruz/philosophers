@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 10:49:58 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/18 09:26:31 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/18 11:51:39 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static t_bool	ft_is_dead(t_philosopher *philosopher)
 		printf("last: %ld\ncurrent: %ld\ndiff: %ld\n",
 			philosopher->last_meal, current_time, diff);
 		pthread_mutex_unlock(&philosopher->sim->print_lock);
-		return(TRUE);
+		return (TRUE);
 	}
 	else
 		return (FALSE);
