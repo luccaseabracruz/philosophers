@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 16:57:44 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/16 18:09:11 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/18 09:22:24 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ long	ft_get_timestamp(t_sec_unit unit)
 	struct timeval	tv;
 	long			res;
 
+	res = 0;
 	gettimeofday(&tv, NULL);
 	if (unit == SECONDS)
 		res = tv.tv_sec + (tv.tv_usec / 1000000);

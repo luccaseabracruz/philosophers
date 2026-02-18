@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 12:24:10 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/16 18:07:51 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/18 09:26:32 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	ft_put_error(char *msg)
 	}
 }
 
-void	ft_put_message(t_philosopher *philosopher, char *msg, long *timestamp)
+void	ft_put_msg(t_philosopher *philosopher, char *msg, long *timestamp)
 {
 	long	temp;
 

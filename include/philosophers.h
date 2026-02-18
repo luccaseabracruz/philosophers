@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:20:20 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/16 18:07:30 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/18 09:26:29 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 typedef struct s_simulation		t_simulation;
 typedef struct s_philosopher	t_philosopher;
 
-typedef enum e_bool		t_bool;
-typedef enum e_result	t_result;
-typedef enum e_sec_unit	t_sec_unit;
+typedef enum e_bool				t_bool;
+typedef enum e_result			t_result;
+typedef enum e_sec_unit			t_sec_unit;
 
 // -------------------------------- FUNCTIONS ------------------------------- //
 
@@ -40,7 +40,7 @@ void		*ft_routine(void *arg);
 t_result	ft_start_simulation(t_simulation *sim);
 long		ft_atol(char *str);
 void		ft_put_error(char *msg);
-void		ft_put_message(t_philosopher *philosopher, char *msg, long *timestamp);
+void		ft_put_msg(t_philosopher *philosopher, char *msg, long *timestamp);
 
 // ------------------------------- ENUMS ------------------------------- //
 
