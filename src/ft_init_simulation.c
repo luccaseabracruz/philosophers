@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 12:58:23 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/18 14:36:55 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/18 16:25:47 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ static t_result	ft_init_forks(t_simulation *sim)
 {
 	int	i;
 
-	sim->forks = malloc(sim->num_philosophers * sizeof(pthread_mutex_t));
+	sim->forks = malloc(sim->philo_count * sizeof(pthread_mutex_t));
 	if (!sim->forks)
 	{
 		ft_put_error(&sim->print_lock, "ft_init_forks()", ERR_MALLOC);
 		return (FAILURE);
 	}
 	i = 0;
-	while (i < sim->num_philosophers)
+	while (i < sim->philo_count)
 	{
 		pthread_mutex_init(sim->forks + i, NULL);
 		i++;
@@ -37,24 +37,14 @@ static t_result	ft_init_forks(t_simulation *sim)
 static void	ft_assign_forks(t_philosopher *philosopher)
 {
 	pthread_mutex_t	*forks;
-	int				num_philosophers;
+	int				philo_count;
 	int				i;
 
 	forks = philosopher->sim->forks;
-	num_philosophers = philosopher->sim->num_philosophers;
+	philo_count = philosopher->sim->philo_count;
 	i = philosopher->id - 1;
-	philosopher->left_fork = forks + i;
-	philosopher->right_fork = forks + ((i + 1) % num_philosophers);
-	if (philosopher->id % 2 != 0)
-	{
-		philosopher->first_fork = philosopher->left_fork;
-		philosopher->second_fork = philosopher->right_fork;
-	}
-	else
-	{
-		philosopher->first_fork = philosopher->right_fork;
-		philosopher->second_fork = philosopher->left_fork;
-	}
+	philosopher->right_fork = forks + i;
+	philosopher->left_fork = forks + ((i + 1) % philo_count);
 }
 
 static t_result	ft_init_philosophers(t_simulation *sim)
@@ -62,16 +52,16 @@ static t_result	ft_init_philosophers(t_simulation *sim)
 	t_philosopher	*philosophers;
 	int				i;
 
-	sim->philosophers = malloc(sim->num_philosophers * sizeof(t_philosopher));
+	sim->philosophers = malloc(sim->philo_count * sizeof(t_philosopher));
 	if (!sim->philosophers)
 	{
 		ft_put_error(&sim->print_lock, "ft_init_philosophers()", ERR_MALLOC);
 		return (FAILURE);
 	}
 	philosophers = sim->philosophers;
-	memset(philosophers, 0, sim->num_philosophers * sizeof(t_philosopher));
+	memset(philosophers, 0, sim->philo_count * sizeof(t_philosopher));
 	i = 0;
-	while (i < sim->num_philosophers)
+	while (i < sim->philo_count)
 	{
 		philosophers[i].id = i + 1;
 		philosophers[i].sim = sim;
@@ -90,18 +80,18 @@ t_result	ft_init_simulation(int argc, char **argv, t_simulation *sim)
 		return (FAILURE);
 	if (pthread_mutex_init(&sim->print_lock, NULL) != SUCCESS)
 	{
-		ft_cleanup_forks(sim->forks, sim->num_philosophers);
+		ft_cleanup_forks(sim->forks, sim->philo_count);
 		return (FAILURE);
 	}
 	if (pthread_mutex_init(&sim->running_lock, NULL))
 	{
-		ft_cleanup_forks(sim->forks, sim->num_philosophers);
+		ft_cleanup_forks(sim->forks, sim->philo_count);
 		pthread_mutex_destroy(&sim->print_lock);
 		return (FAILURE);
 	}
 	if (ft_init_philosophers(sim) != SUCCESS)
 	{
-		ft_cleanup_forks(sim->forks, sim->num_philosophers);
+		ft_cleanup_forks(sim->forks, sim->philo_count);
 		pthread_mutex_destroy(&sim->print_lock);
 		pthread_mutex_destroy(&sim->running_lock);
 		return (FAILURE);

@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 10:49:58 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/18 11:51:39 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/18 16:33:52 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,7 @@ static t_bool	ft_is_dead(t_philosopher *philosopher)
 	current_time = ft_get_timestamp(MILISECONDS);
 	diff = current_time - philosopher->last_meal;
 	if (diff >= philosopher->sim->time_to_die)
-	{
-		pthread_mutex_lock(&philosopher->sim->print_lock);
-		printf("last: %ld\ncurrent: %ld\ndiff: %ld\n",
-			philosopher->last_meal, current_time, diff);
-		pthread_mutex_unlock(&philosopher->sim->print_lock);
 		return (TRUE);
-	}
 	else
 		return (FALSE);
 }
@@ -54,7 +48,7 @@ static void	ft_check_all_philosophers(t_simulation *sim)
 
 	i = 0;
 	satisfied_philosophers = 0;
-	while (i < sim->num_philosophers)
+	while (i < sim->philo_count)
 	{
 		cur_philosopher = sim->philosophers + i;
 		if (ft_is_dead(cur_philosopher) == TRUE)
@@ -67,7 +61,7 @@ static void	ft_check_all_philosophers(t_simulation *sim)
 			satisfied_philosophers++;
 		i++;
 	}
-	if (satisfied_philosophers == sim->num_philosophers)
+	if (satisfied_philosophers == sim->philo_count)
 		ft_set_running(sim, FALSE);
 }
 

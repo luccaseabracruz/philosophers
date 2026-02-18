@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:20:20 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/18 14:44:59 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/18 16:30:27 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,16 @@ typedef struct s_philosopher	t_philosopher;
 typedef enum e_bool				t_bool;
 typedef enum e_result			t_result;
 typedef enum e_sec_unit			t_sec_unit;
+typedef enum e_fork_side		t_fork_side;
 
 // -------------------------------- FUNCTIONS ------------------------------- //
 
-void		ft_take_forks(t_philosopher *philosopher);
-void		ft_release_forks(t_philosopher *philosopher);
+void		ft_take_fork(t_philosopher *philo, t_fork_side side);
+void		ft_release_forks(t_philosopher *philo);
 void		ft_eat(t_philosopher *philosopher);
-void		ft_sleep(t_philosopher *philosopher);
-void		ft_think(t_philosopher *philosopher);
-void		ft_cleanup_forks(pthread_mutex_t *forks, int num_philosophers);
+void		ft_sleep(t_philosopher *philo);
+void		ft_think(t_philosopher *philo);
+void		ft_cleanup_forks(pthread_mutex_t *forks, int philo_count);
 void		ft_cleanup_simulation(t_simulation *sim);
 long		ft_get_timestamp(t_sec_unit unit);
 t_result	ft_init_simulation(int argc, char **argv, t_simulation *sim);
@@ -64,6 +65,12 @@ typedef enum e_sec_unit
 	MICROSECONDS,
 }	t_sec_unit;
 
+typedef enum e_fork_side
+{
+	RIGHT,
+	LEFT
+}	t_fork_side;
+
 // ------------------------------- STRUCTURES ------------------------------- //
 
 typedef struct s_philosopher
@@ -74,14 +81,12 @@ typedef struct s_philosopher
 	pthread_t		thread;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*first_fork;
-	pthread_mutex_t	*second_fork;
 	t_simulation	*sim;
 }	t_philosopher;
 
 typedef struct s_simulation
 {
-	int				num_philosophers;
+	int				philo_count;
 	long			time_to_die;
 	long			time_to_eat;
 	long			time_to_sleep;

@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 16:33:54 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/18 14:03:58 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/18 16:22:26 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static t_result	ft_create_threads(t_simulation *sim)
 		return (FAILURE);
 	}
 	i = 0;
-	while (i < sim->num_philosophers)
+	while (i < sim->philo_count)
 	{
 		philo = sim->philosophers + i;
 		if (pthread_create(&philo->thread, NULL,
@@ -46,7 +46,7 @@ static t_result	ft_join_threads(t_simulation *sim)
 	int				i;
 
 	i = 0;
-	while (i < sim->num_philosophers)
+	while (i < sim->philo_count)
 	{
 		philo = sim->philosophers + i;
 		if (pthread_join(philo->thread, NULL) != SUCCESS)

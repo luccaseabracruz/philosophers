@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 16:46:41 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/16 18:38:41 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/18 16:26:18 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,17 @@
 
 void	*ft_routine(void *arg)
 {
-	t_philosopher	*philosopher;
+	t_philosopher	*philo;
 
-	philosopher = (t_philosopher *)arg;
-	while (ft_is_running(philosopher->sim))
+	philo = (t_philosopher *)arg;
+	while (ft_is_running(philo->sim))
 	{
-		ft_take_forks(philosopher);
-		if (!ft_is_running(philosopher->sim))
-			break ;
-		ft_eat(philosopher);
-		ft_release_forks(philosopher);
-		if (!ft_is_running(philosopher->sim))
-			break ;
-		ft_sleep(philosopher);
-		if (!ft_is_running(philosopher->sim))
-			break ;
-		ft_think(philosopher);
+		ft_take_fork(philo, RIGHT);
+		ft_take_fork(philo, LEFT);
+		ft_eat(philo);
+		ft_release_forks(philo);
+		ft_sleep(philo);
+		ft_think(philo);
 	}
 	return (arg);
 }
