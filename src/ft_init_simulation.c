@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 12:58:23 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/16 18:31:16 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/18 11:52:22 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,13 @@
 #include <string.h>
 #include <pthread.h>
 
-static void	ft_parse_rules(char **args, t_simulation *sim)
+static t_result	ft_parse_rules(int argc, char **args, t_simulation *sim)
 {
+	if (argc < 5)
+	{
+		ft_put_error(ERR_MISS_ARGS);
+		return (FAILURE);
+	}
 	sim->num_philosophers = ft_atol(args[0]);
 	sim->time_to_die = ft_atol(args[1]);
 	sim->time_to_eat = ft_atol(args[2]);
@@ -25,6 +30,13 @@ static void	ft_parse_rules(char **args, t_simulation *sim)
 		sim->meals_counter_target = ft_atol(args[4]);
 	else
 		sim->meals_counter_target = -1;
+	if (sim->time_to_die < 0 || sim->time_to_eat < 0
+		|| sim->time_to_sleep < 0 || (args[4] && sim->meals_counter_target < 0))
+	{
+		ft_put_error("Error: negative numbers are not allowed.\n");
+		return (FAILURE);
+	}
+	return (SUCCESS);
 }
 
 static t_result	ft_init_forks(int num, pthread_mutex_t **forks)
@@ -98,13 +110,9 @@ static t_result	ft_init_philosophers(t_simulation *sim)
 
 t_result	ft_init_simulation(int argc, char **argv, t_simulation *sim)
 {
-	if (argc < 5)
-	{
-		ft_put_error(ERR_MISS_ARGS);
+	if (ft_parse_rules(argc, argv + 1, sim) != SUCCESS)
 		return (FAILURE);
-	}
-	ft_parse_rules(argv + 1, sim);
-	if (ft_init_forks(sim->num_philosophers, &sim->forks) == FAILURE)
+	if (ft_init_forks(sim->num_philosophers, &sim->forks) != SUCCESS)
 		return (FAILURE);
 	if (pthread_mutex_init(&sim->print_lock, NULL) != SUCCESS)
 	{
@@ -117,7 +125,7 @@ t_result	ft_init_simulation(int argc, char **argv, t_simulation *sim)
 		pthread_mutex_destroy(&sim->print_lock);
 		return (FAILURE);
 	}
-	if (ft_init_philosophers(sim) == FAILURE)
+	if (ft_init_philosophers(sim) != SUCCESS)
 	{
 		ft_cleanup_forks(sim->forks, sim->num_philosophers);
 		pthread_mutex_destroy(&sim->print_lock);
