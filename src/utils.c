@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 12:24:10 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/18 14:01:31 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/18 14:15:49 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,11 @@ long	ft_atol(char *str)
 	sign = 1;
 	i = 0;
 	if (str[i] == '-')
+	{
 		sign = -1;
-	if (str[i] == '+' || str[i] == '-')
+		i++;
+	}
+	else if (str[i] == '+')
 		i++;
 	while (str[i] && ft_isdigit(str[i]))
 	{
