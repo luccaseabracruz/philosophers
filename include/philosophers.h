@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:20:20 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/19 10:09:11 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/19 14:56:37 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,11 @@ typedef struct s_philosopher
 typedef struct s_simulation
 {
 	int				philo_count;
+	long			start_timestamp;
 	long			time_to_die;
 	long			time_to_eat;
 	long			time_to_sleep;
 	int				meals_counter_target;
-	long			start_time_stamp;
 	t_philosopher	*philos;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_lock;

@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 16:33:54 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/19 13:06:17 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/19 15:21:18 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ static t_result	ft_join_threads(t_simulation *sim)
 t_result	ft_start_simulation(t_simulation *sim)
 {
 	ft_set_running(sim, TRUE);
+	sim->start_timestamp = ft_get_timestamp(MILISECONDS);
 	if (ft_create_threads(sim) != SUCCESS || ft_join_threads(sim) != SUCCESS)
 	{
 		ft_set_running(sim, FALSE);
