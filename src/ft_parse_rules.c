@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 14:32:56 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/18 16:22:25 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/19 15:10:24 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_result	ft_parse_rules(int argc, char **argv, t_simulation *sim)
 	sim->time_to_eat = ft_atol(argv[3]);
 	sim->time_to_sleep = ft_atol(argv[4]);
 	if (argv[5])
-		sim->meals_counter_target = ft_atol(argv[4]);
+		sim->meals_counter_target = ft_atol(argv[5]);
 	else
 		sim->meals_counter_target = -1;
 	if (ft_validate_numbers_sign(sim, argv) != SUCCESS)
