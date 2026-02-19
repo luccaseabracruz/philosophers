@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 16:33:54 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/19 11:43:19 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/19 13:06:17 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <pthread.h>
 #include <unistd.h>
 
-static t_result ft_create_threads_step(t_simulation *sim, int start, int step)
+static t_result	ft_create_threads_step(t_simulation *sim, int start, int step)
 {
 	t_philosopher	*philo;
 	int				i;
@@ -37,7 +37,6 @@ static t_result ft_create_threads_step(t_simulation *sim, int start, int step)
 
 static t_result	ft_create_threads(t_simulation *sim)
 {
-
 	if (pthread_create(&sim->monitoring_thread,
 			NULL, ft_monitoring_routine, sim) != SUCCESS)
 	{
