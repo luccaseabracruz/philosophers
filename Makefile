@@ -6,7 +6,7 @@
 #    By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/03 16:37:00 by lseabra-          #+#    #+#              #
-#    Updated: 2026/02/18 14:44:14 by lseabra-         ###   ########.fr        #
+#    Updated: 2026/02/19 14:55:38 by lseabra-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ OBJ = $(addprefix $(BUILD_PATH)/, $(notdir $(SRC:.c=.o)))
 # Compiler and Flags
 CC = cc $(CFLAGS)
 CFLAGS = -Wall -Wextra -Werror -g
+ASAN = -fsanitize=address
 INC = -I$(INC_PATH)
 EXTRA_LIBS = -lpthread
 
@@ -71,7 +72,7 @@ RM_REC_FORCE = rm -rf
 all: $(PGM_NAME)
 
 $(PGM_NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(INC) $(OBJ) $(EXTRA_LIBS) -o $@
+	$(CC) $(CFLAGS) $(ASAN) $(INC) $(OBJ) $(EXTRA_LIBS) -o $@
 
 $(BUILD_PATH)/%.o: $(SRC_PATH)/%.c | $(BUILD_PATH)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
