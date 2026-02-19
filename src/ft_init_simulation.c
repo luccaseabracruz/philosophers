@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 12:58:23 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/18 16:25:47 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/19 10:09:14 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static t_result	ft_init_forks(t_simulation *sim)
 	return (SUCCESS);
 }
 
-static void	ft_assign_forks(t_philosopher *philosopher)
+static void	ft_assign_forks(t_philosopher *philo)
 {
 	pthread_mutex_t	*forks;
 	int				philo_count;
@@ -49,7 +49,7 @@ static void	ft_assign_forks(t_philosopher *philosopher)
 
 static t_result	ft_init_philosophers(t_simulation *sim)
 {
-	t_philosopher	*philosophers;
+	t_philosopher	*philos;
 	int				i;
 
 	sim->philosophers = malloc(sim->philo_count * sizeof(t_philosopher));

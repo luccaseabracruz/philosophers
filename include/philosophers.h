@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:20:20 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/18 16:30:27 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/19 10:09:11 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef enum e_fork_side		t_fork_side;
 
 void		ft_take_fork(t_philosopher *philo, t_fork_side side);
 void		ft_release_forks(t_philosopher *philo);
-void		ft_eat(t_philosopher *philosopher);
+void		ft_eat(t_philosopher *philo);
 void		ft_sleep(t_philosopher *philo);
 void		ft_think(t_philosopher *philo);
 void		ft_cleanup_forks(pthread_mutex_t *forks, int philo_count);
@@ -42,7 +42,7 @@ void		*ft_routine(void *arg);
 t_result	ft_start_simulation(t_simulation *sim);
 long		ft_atol(char *str);
 void		ft_put_error(pthread_mutex_t *lock, char *function, char *message);
-void		ft_put_msg(t_philosopher *philosopher, char *msg, long *timestamp);
+void		ft_put_msg(t_philosopher *philo, char *msg, long *timestamp);
 
 // ------------------------------- ENUMS ------------------------------- //
 
@@ -92,7 +92,7 @@ typedef struct s_simulation
 	long			time_to_sleep;
 	int				meals_counter_target;
 	long			start_time_stamp;
-	t_philosopher	*philosophers;
+	t_philosopher	*philos;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_lock;
 	pthread_mutex_t	running_lock;

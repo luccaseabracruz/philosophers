@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 10:49:58 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/18 16:33:52 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/19 10:08:48 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 #include <stdio.h>
 
-static t_bool	ft_is_satisfied(t_philosopher *philosopher)
+static t_bool	ft_is_satisfied(t_philosopher *philo)
 {
 	int	target;
 
@@ -27,7 +27,7 @@ static t_bool	ft_is_satisfied(t_philosopher *philosopher)
 		return (FALSE);
 }
 
-static t_bool	ft_is_dead(t_philosopher *philosopher)
+static t_bool	ft_is_dead(t_philosopher *philo)
 {
 	long	current_time;
 	long	diff;
