@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 12:24:10 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/19 11:46:20 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/19 13:03:11 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	ft_put_msg(t_philosopher *philo, char *msg, long *timestamp)
 		temp = ft_get_timestamp(MILISECONDS);
 		timestamp = &temp;
 	}
-	if (msg)
+	if (msg && ft_is_running(philo->sim))
 	{
 		pthread_mutex_lock(&philo->sim->print_lock);
 		printf("%ld %d %s\n", *timestamp, philo->id, msg);
