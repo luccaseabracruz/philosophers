@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 10:49:58 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/19 10:08:48 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/19 10:29:04 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static t_bool	ft_is_satisfied(t_philosopher *philo)
 {
 	int	target;
 
-	target = philosopher->sim->meals_counter_target;
-	if (target >= 0 && philosopher->meals_counter >= target)
+	target = philo->sim->meals_counter_target;
+	if (target >= 0 && philo->meals_counter >= target)
 		return (TRUE);
 	else
 		return (FALSE);
@@ -33,8 +33,8 @@ static t_bool	ft_is_dead(t_philosopher *philo)
 	long	diff;
 
 	current_time = ft_get_timestamp(MILISECONDS);
-	diff = current_time - philosopher->last_meal;
-	if (diff >= philosopher->sim->time_to_die)
+	diff = current_time - philo->last_meal;
+	if (diff >= philo->sim->time_to_die)
 		return (TRUE);
 	else
 		return (FALSE);
@@ -43,25 +43,25 @@ static t_bool	ft_is_dead(t_philosopher *philo)
 static void	ft_check_all_philosophers(t_simulation *sim)
 {
 	int				i;
-	int				satisfied_philosophers;
-	t_philosopher	*cur_philosopher;
+	int				satisfied_philos;
+	t_philosopher	*cur_philo;
 
 	i = 0;
-	satisfied_philosophers = 0;
+	satisfied_philos = 0;
 	while (i < sim->philo_count)
 	{
-		cur_philosopher = sim->philosophers + i;
-		if (ft_is_dead(cur_philosopher) == TRUE)
+		cur_philo = sim->philos + i;
+		if (ft_is_dead(cur_philo) == TRUE)
 		{
 			ft_set_running(sim, FALSE);
-			ft_put_msg(cur_philosopher, MSG_DIE, NULL);
+			ft_put_msg(cur_philo, MSG_DIE, NULL);
 			return ;
 		}
-		else if (ft_is_satisfied(cur_philosopher) == TRUE)
-			satisfied_philosophers++;
+		else if (ft_is_satisfied(cur_philo) == TRUE)
+			satisfied_philos++;
 		i++;
 	}
-	if (satisfied_philosophers == sim->philo_count)
+	if (satisfied_philos == sim->philo_count)
 		ft_set_running(sim, FALSE);
 }
 

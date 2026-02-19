@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 12:58:23 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/19 10:09:14 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/19 10:27:45 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ static void	ft_assign_forks(t_philosopher *philo)
 	int				philo_count;
 	int				i;
 
-	forks = philosopher->sim->forks;
-	philo_count = philosopher->sim->philo_count;
-	i = philosopher->id - 1;
-	philosopher->right_fork = forks + i;
-	philosopher->left_fork = forks + ((i + 1) % philo_count);
+	forks = philo->sim->forks;
+	philo_count = philo->sim->philo_count;
+	i = philo->id - 1;
+	philo->right_fork = forks + i;
+	philo->left_fork = forks + ((i + 1) % philo_count);
 }
 
 static t_result	ft_init_philosophers(t_simulation *sim)
@@ -52,21 +52,21 @@ static t_result	ft_init_philosophers(t_simulation *sim)
 	t_philosopher	*philos;
 	int				i;
 
-	sim->philosophers = malloc(sim->philo_count * sizeof(t_philosopher));
-	if (!sim->philosophers)
+	sim->philos = malloc(sim->philo_count * sizeof(t_philosopher));
+	if (!sim->philos)
 	{
 		ft_put_error(&sim->print_lock, "ft_init_philosophers()", ERR_MALLOC);
 		return (FAILURE);
 	}
-	philosophers = sim->philosophers;
-	memset(philosophers, 0, sim->philo_count * sizeof(t_philosopher));
+	philos = sim->philos;
+	memset(philos, 0, sim->philo_count * sizeof(t_philosopher));
 	i = 0;
 	while (i < sim->philo_count)
 	{
-		philosophers[i].id = i + 1;
-		philosophers[i].sim = sim;
-		philosophers[i].last_meal = ft_get_timestamp(MILISECONDS);
-		ft_assign_forks(philosophers + i);
+		philos[i].id = i + 1;
+		philos[i].sim = sim;
+		philos[i].last_meal = ft_get_timestamp(MILISECONDS);
+		ft_assign_forks(philos + i);
 		i++;
 	}
 	return (SUCCESS);
