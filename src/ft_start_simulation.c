@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 16:33:54 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/19 15:21:18 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/23 12:21:06 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,21 @@
 #include <pthread.h>
 #include <unistd.h>
 
-static t_result	ft_create_threads_step(t_simulation *sim, int start, int step)
+static t_result	ft_step_threads(t_simulation *s, int start, int step, int wait)
 {
 	t_philosopher	*philo;
 	int				i;
 
+	if (wait > 0)
+		usleep(wait);
 	i = start;
-	while (i < sim->philo_count)
+	while (i < s->philo_count)
 	{
-		philo = sim->philos + i;
+		philo = s->philos + i;
 		if (pthread_create(&philo->thread, NULL,
 				ft_routine, (void *)philo) != SUCCESS)
 		{
-			ft_put_error(&sim->print_lock, "ft_create_threads_step()",
+			ft_put_error(&s->print_lock, "ft_step_threads()",
 				ERR_THREAD_CREATE);
 			return (FAILURE);
 		}
@@ -44,10 +46,9 @@ static t_result	ft_create_threads(t_simulation *sim)
 			ERR_THREAD_CREATE);
 		return (FAILURE);
 	}
-	if (ft_create_threads_step(sim, 0, 2) != SUCCESS)
+	if (ft_step_threads(sim, 0, 2, 0) != SUCCESS)
 		return (FAILURE);
-	usleep(1000);
-	if (ft_create_threads_step(sim, 1, 2) != SUCCESS)
+	if (ft_step_threads(sim, 1, 2, 1500) != SUCCESS)
 		return (FAILURE);
 	return (SUCCESS);
 }
