@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 12:24:10 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/23 11:56:07 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/23 12:10:26 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	ft_print_action(t_philosopher *philo, char *msg, long *timestamp)
 {
 	long	temp;
 	long	start;
+	long	last_numbers;
 
 	start = philo->sim->start_timestamp;
 	if (!timestamp)
@@ -39,11 +40,12 @@ void	ft_print_action(t_philosopher *philo, char *msg, long *timestamp)
 		temp = ft_get_timestamp(MILISECONDS);
 		timestamp = &temp;
 	}
+	last_numbers = (*timestamp - start) % 1000;
 	if (msg)
 	{
 		pthread_mutex_lock(&philo->sim->print_lock);
 		if (ft_is_running(philo->sim))
-			printf("%ld %d %s\n", (*timestamp - start), philo->id, msg);
+			printf("%03ld %d %s\n", last_numbers, philo->id, msg);
 		pthread_mutex_unlock(&philo->sim->print_lock);
 	}
 }
