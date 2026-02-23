@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:20:20 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/23 11:56:04 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/23 14:29:29 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_bool		ft_is_running(t_simulation *sim);
 void		*ft_monitoring_routine(void *arg);
 t_result	ft_parse_rules(int argc, char **argv, t_simulation *sim);
 void		*ft_routine(void *arg);
+void		ft_safe_usleep(t_simulation *sim, long time_ms);
 t_result	ft_start_simulation(t_simulation *sim);
 long		ft_atol(char *str);
 void		ft_put_error(pthread_mutex_t *lock, char *function, char *message);
