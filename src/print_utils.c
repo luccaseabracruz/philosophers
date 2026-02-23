@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 12:24:10 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/19 15:37:21 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/23 11:56:07 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_put_error(pthread_mutex_t *lock, char *message, char *function)
 	pthread_mutex_unlock(lock);
 }
 
-void	ft_put_msg(t_philosopher *philo, char *msg, long *timestamp)
+void	ft_print_action(t_philosopher *philo, char *msg, long *timestamp)
 {
 	long	temp;
 	long	start;

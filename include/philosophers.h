@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:20:20 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/19 14:56:37 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/23 11:56:04 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void		*ft_routine(void *arg);
 t_result	ft_start_simulation(t_simulation *sim);
 long		ft_atol(char *str);
 void		ft_put_error(pthread_mutex_t *lock, char *function, char *message);
-void		ft_put_msg(t_philosopher *philo, char *msg, long *timestamp);
+void		ft_print_action(t_philosopher *philo, char *msg, long *timestamp);
 
 // ------------------------------- ENUMS ------------------------------- //
 
