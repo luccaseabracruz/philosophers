@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:20:20 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/23 14:29:29 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/24 15:30:21 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,10 @@ typedef struct s_simulation
 # define MSG_DIE	"died"
 
 # define MONITORING_INTERVAL_MS 1
+
+# define ORANGE  "\033[38;5;208m"
+# define BLUE    "\033[34m"
+# define TEAL    "\033[36m"
+# define RESET   "\033[0m"
 
 #endif
