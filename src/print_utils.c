@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 12:24:10 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/24 15:31:53 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/02/24 15:35:21 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_print_action(t_philosopher *philo, char *msg, long *timestamp)
 		pthread_mutex_lock(&philo->sim->print_lock);
 		if (ft_is_running(philo->sim))
 		{
-			printf(ORANGE"%03ld "TEAL"%d "BLUE"%s\n" RESET,
+			printf(ORANGE"%03ld "BLUE"%d "TEAL"%s\n"RESET,
 				last_numbers, philo->id, msg);
 		}
 		pthread_mutex_unlock(&philo->sim->print_lock);
