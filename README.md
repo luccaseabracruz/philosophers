@@ -103,6 +103,8 @@ philo/
 
 - [POSIX Threads Programming]
   (https://computing.llnl.gov/tutorials/pthreads/)
+- [Difference between Process and Thread - GeeksforGeeks]
+  (https://www.geeksforgeeks.org/operating-systems/difference-between-process-and-thread/)
 - [Deadlock - GeeksforGeeks]
   (https://www.geeksforgeeks.org/deadlock-in-operating-system/)
 - [CodeVault - C Threads Playlist]
