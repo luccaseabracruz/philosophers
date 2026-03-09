@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 17:31:24 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/18 11:51:23 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/03/09 20:47:58 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,26 @@
 
 void	ft_set_running(t_simulation *sim, t_bool value)
 {
-	pthread_mutex_lock(&sim->running_lock);
+	if (ft_lock_mutex(sim, &sim->running_lock, "ft_set_running()") != SUCCESS)
+		return ;
 	sim->running = value;
-	pthread_mutex_unlock(&sim->running_lock);
+	ft_unlock_mutex(sim, &sim->running_lock, "ft_set_running()");
 }
 
 t_bool	ft_is_running(t_simulation *sim)
 {
-	pthread_mutex_lock(&sim->running_lock);
+	int	res;
+
+	res = ft_lock_mutex(sim, &sim->running_lock, "ft_is_running()");
+	if (res != SUCCESS)
+		return (FALSE);
 	if (sim->running == FALSE)
 	{
-		pthread_mutex_unlock(&sim->running_lock);
+		ft_unlock_mutex(sim, &sim->running_lock, "ft_is_running()");
 		return (FALSE);
 	}
-	pthread_mutex_unlock(&sim->running_lock);
+	res = ft_unlock_mutex(sim, &sim->running_lock, "ft_is_running()");
+	if (res != SUCCESS)
+		return (FALSE);
 	return (TRUE);
 }

@@ -6,7 +6,7 @@
 #    By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/03 16:37:00 by lseabra-          #+#    #+#              #
-#    Updated: 2026/02/24 18:57:59 by lseabra-         ###   ########.fr        #
+#    Updated: 2026/03/09 13:58:09 by lseabra-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRC = $(addprefix $(SRC_PATH)/, \
 	ft_routine.c \
 	ft_safe_usleep.c \
 	ft_start_simulation.c \
+	mutex_utils.c \
 	print_utils.c \
 )
 

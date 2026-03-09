@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 14:32:56 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/19 15:10:24 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/03/09 16:44:45 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ static t_result	ft_validate_argc(t_simulation *sim, int argc)
 {
 	if (argc < 5)
 	{
-		ft_put_error(&sim->print_lock, NULL, ERR_MISS_ARGS);
+		ft_put_error(sim, NULL, ERR_MISS_ARGS);
 		return (FAILURE);
 	}
 	else if (argc > 6)
 	{
-		ft_put_error(&sim->print_lock, NULL, ERR_MANY_ARGS);
+		ft_put_error(sim, NULL, ERR_MANY_ARGS);
 		return (FAILURE);
 	}
 	else
@@ -36,7 +36,7 @@ static t_result	ft_validate_numbers_sign(t_simulation *sim, char **argv)
 		|| sim->time_to_sleep < 0
 		|| (argv[5] && sim->meals_counter_target < 0))
 	{
-		ft_put_error(&sim->print_lock, NULL, ERR_NEG_NUM);
+		ft_put_error(sim, NULL, ERR_NEG_NUM);
 		return (FAILURE);
 	}
 	else

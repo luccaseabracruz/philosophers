@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 11:15:26 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/23 14:31:35 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/03/09 20:42:07 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 void	ft_take_fork(t_philosopher *philo, t_fork_side side)
 {
 	pthread_mutex_t	*fork;
+	int	res;
 
 	if (side == RIGHT)
 		fork = philo->right_fork;
@@ -23,7 +24,9 @@ void	ft_take_fork(t_philosopher *philo, t_fork_side side)
 		fork = philo->left_fork;
 	else
 		fork = philo->right_fork;
-	pthread_mutex_lock(fork);
+	res = ft_lock_mutex(philo->sim, fork, "ft_take_fork()");
+	if (res != SUCCESS)
+		return ;
 	if (ft_is_running(philo->sim) == FALSE)
 		return ;
 	ft_print_action(philo, MSG_FORK, NULL);
@@ -31,8 +34,8 @@ void	ft_take_fork(t_philosopher *philo, t_fork_side side)
 
 void	ft_release_forks(t_philosopher *philo)
 {
-	pthread_mutex_unlock(philo->left_fork);
-	pthread_mutex_unlock(philo->right_fork);
+	ft_unlock_mutex(philo->sim, philo->left_fork, "ft_release_forks()");
+	ft_unlock_mutex(philo->sim, philo->right_fork, "ft_release_forks()");
 }
 
 void	ft_eat(t_philosopher *philo)

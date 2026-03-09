@@ -6,12 +6,13 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 12:58:23 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/19 10:27:45 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/03/09 16:44:44 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include <stdlib.h>
+#include <unistd.h>
 #include <string.h>
 #include <pthread.h>
 
@@ -22,13 +23,18 @@ static t_result	ft_init_forks(t_simulation *sim)
 	sim->forks = malloc(sim->philo_count * sizeof(pthread_mutex_t));
 	if (!sim->forks)
 	{
-		ft_put_error(&sim->print_lock, "ft_init_forks()", ERR_MALLOC);
+		ft_put_error(sim, "ft_init_forks()", ERR_MALLOC);
 		return (FAILURE);
 	}
 	i = 0;
 	while (i < sim->philo_count)
 	{
-		pthread_mutex_init(sim->forks + i, NULL);
+		if (ft_init_mutex(sim, sim->forks + i, "ft_init_forks()") != SUCCESS)
+		{
+			while (--i >= 0)
+				ft_destroy_mutex(sim, sim->forks + i, "ft_init_forks()");
+			return (FAILURE);
+		}
 		i++;
 	}
 	return (SUCCESS);
@@ -55,7 +61,7 @@ static t_result	ft_init_philosophers(t_simulation *sim)
 	sim->philos = malloc(sim->philo_count * sizeof(t_philosopher));
 	if (!sim->philos)
 	{
-		ft_put_error(&sim->print_lock, "ft_init_philosophers()", ERR_MALLOC);
+		ft_put_error(sim, "ft_init_philosophers()", ERR_MALLOC);
 		return (FAILURE);
 	}
 	philos = sim->philos;
@@ -74,26 +80,28 @@ static t_result	ft_init_philosophers(t_simulation *sim)
 
 t_result	ft_init_simulation(int argc, char **argv, t_simulation *sim)
 {
-	if (ft_parse_rules(argc, argv, sim) != SUCCESS)
-		return (FAILURE);
-	if (ft_init_forks(sim) != SUCCESS)
-		return (FAILURE);
 	if (pthread_mutex_init(&sim->print_lock, NULL) != SUCCESS)
 	{
-		ft_cleanup_forks(sim->forks, sim->philo_count);
+		ft_put_str_fd(STDERR_FILENO, ERR_PRINT_LOCK_INIT);
 		return (FAILURE);
 	}
-	if (pthread_mutex_init(&sim->running_lock, NULL))
+	if (ft_parse_rules(argc, argv, sim) != SUCCESS
+		|| ft_init_forks(sim) != SUCCESS)
 	{
-		ft_cleanup_forks(sim->forks, sim->philo_count);
-		pthread_mutex_destroy(&sim->print_lock);
+		ft_destroy_mutex(sim, &sim->print_lock, "ft_init_simulation()");
+		return (FAILURE);
+	}
+	if (ft_init_mutex(sim, &sim->running_lock, "ft_init_simulation()"))
+	{
+		ft_cleanup_forks(sim);
+		ft_destroy_mutex(sim, &sim->print_lock, "ft_init_simulation()");
 		return (FAILURE);
 	}
 	if (ft_init_philosophers(sim) != SUCCESS)
 	{
-		ft_cleanup_forks(sim->forks, sim->philo_count);
-		pthread_mutex_destroy(&sim->print_lock);
-		pthread_mutex_destroy(&sim->running_lock);
+		ft_cleanup_forks(sim);
+		ft_destroy_mutex(sim, &sim->print_lock, "ft_init_simulation()");
+		ft_destroy_mutex(sim, &sim->running_lock, "ft_init_simulation()");
 		return (FAILURE);
 	}
 	return (SUCCESS);

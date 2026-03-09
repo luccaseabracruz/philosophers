@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:20:20 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/24 15:30:21 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/03/09 20:40:42 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void		ft_release_forks(t_philosopher *philo);
 void		ft_eat(t_philosopher *philo);
 void		ft_sleep(t_philosopher *philo);
 void		ft_think(t_philosopher *philo);
-void		ft_cleanup_forks(pthread_mutex_t *forks, int philo_count);
+long		ft_atol(char *str);
+void		ft_cleanup_forks(t_simulation *sim);
 void		ft_cleanup_simulation(t_simulation *sim);
 long		ft_get_timestamp(t_sec_unit unit);
 t_result	ft_init_simulation(int argc, char **argv, t_simulation *sim);
@@ -41,8 +42,12 @@ t_result	ft_parse_rules(int argc, char **argv, t_simulation *sim);
 void		*ft_routine(void *arg);
 void		ft_safe_usleep(t_simulation *sim, long time_ms);
 t_result	ft_start_simulation(t_simulation *sim);
-long		ft_atol(char *str);
-void		ft_put_error(pthread_mutex_t *lock, char *function, char *message);
+int			ft_init_mutex(t_simulation *s, pthread_mutex_t *mtx, char *fun);
+int			ft_destroy_mutex(t_simulation *s, pthread_mutex_t *mtx, char *fun);
+int			ft_lock_mutex(t_simulation *s, pthread_mutex_t *mtx, char *fun);
+int			ft_unlock_mutex(t_simulation *s, pthread_mutex_t *mtx, char *fun);
+void		ft_put_str_fd(int fd, char *str);
+void		ft_put_error(t_simulation *sim, char *function, char *message);
 void		ft_print_action(t_philosopher *philo, char *msg, long *timestamp);
 
 // ------------------------------- ENUMS ------------------------------- //
@@ -103,6 +108,10 @@ typedef struct s_simulation
 
 // --------------------------------- MACROS --------------------------------- //
 
+# define ERR_PRINT_LOCK_INIT	"ERROR: print_lock mutex init fail\n"
+# define ERR_PRINT_LOCK_LOCK	"ERROR: print_lock mutex lock failed\n"
+# define ERR_PRINT_LOCK_UNLOCK	"ERROR: print_lock mutex unlock failed\n"
+
 # define ERR_PREFIX			"ERROR"
 # define ERR_MISS_ARGS		"missing arguments"
 # define ERR_MANY_ARGS		"too many arguments"
@@ -110,6 +119,10 @@ typedef struct s_simulation
 # define ERR_MALLOC			"malloc fail ocurred"
 # define ERR_THREAD_CREATE	"thread creation fail"
 # define ERR_THREAD_JOIN	"thread join fail"
+# define ERR_MUTEX_INIT		"mutex init fail"
+# define ERR_MUTEX_DESTROY	"mutex destroy fail"
+# define ERR_MUTEX_LOCK		"mutex lock fail"
+# define ERR_MUTEX_UNLOCK	"mutex unlock fail"
 
 # define MSG_FORK	"has taken a fork"
 # define MSG_EAT	"is eating"
@@ -119,9 +132,9 @@ typedef struct s_simulation
 
 # define MONITORING_INTERVAL_MS 1
 
-# define ORANGE  "\033[38;5;208m"
-# define BLUE    "\033[34m"
-# define TEAL    "\033[36m"
-# define RESET   "\033[0m"
+# define ORANGE	"\033[38;5;208m"
+# define BLUE	"\033[34m"
+# define TEAL	"\033[36m"
+# define RESET	"\033[0m"
 
 #endif
