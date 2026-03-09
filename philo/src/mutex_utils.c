@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 13:18:47 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/03/09 16:48:34 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/03/09 20:56:01 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_destroy_mutex(t_simulation *s, pthread_mutex_t *mtx, char *fun)
 		ft_set_running(s, FALSE);
 	}
 	return (res);
-}	
+}
 
 int	ft_lock_mutex(t_simulation *s, pthread_mutex_t *mtx, char *fun)
 {
@@ -64,4 +64,3 @@ int	ft_unlock_mutex(t_simulation *s, pthread_mutex_t *mtx, char *fun)
 	}
 	return (res);
 }
-

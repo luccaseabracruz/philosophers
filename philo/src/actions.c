@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 11:15:26 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/03/09 20:42:07 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/03/09 20:56:51 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	ft_take_fork(t_philosopher *philo, t_fork_side side)
 {
 	pthread_mutex_t	*fork;
-	int	res;
+	int				res;
 
 	if (side == RIGHT)
 		fork = philo->right_fork;

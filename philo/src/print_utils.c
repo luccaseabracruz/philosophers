@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 12:24:10 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/03/09 20:51:46 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/03/09 20:56:37 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 static size_t	ft_strlen(char *str)
 {
 	size_t	len;
+
 	if (!str)
 		return (0);
 	len = 0;
@@ -65,7 +66,6 @@ void	ft_print_action(t_philosopher *philo, char *msg, long *timestamp)
 	long			last_numbers;
 	int				res;
 	t_simulation	*sim;
-	
 
 	if (!philo || !msg)
 		return ;
