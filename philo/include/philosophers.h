@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:20:20 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/03/09 20:40:42 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/03/09 22:51:06 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void		ft_release_forks(t_philosopher *philo);
 void		ft_eat(t_philosopher *philo);
 void		ft_sleep(t_philosopher *philo);
 void		ft_think(t_philosopher *philo);
+int			ft_is_digit(char c);
 long		ft_atol(char *str);
 void		ft_cleanup_forks(t_simulation *sim);
 void		ft_cleanup_simulation(t_simulation *sim);
@@ -115,7 +116,7 @@ typedef struct s_simulation
 # define ERR_PREFIX			"ERROR"
 # define ERR_MISS_ARGS		"missing arguments"
 # define ERR_MANY_ARGS		"too many arguments"
-# define ERR_NEG_NUM		"negative numbers are not permitted"
+# define ERR_INV_INPUT		"invalid input"
 # define ERR_MALLOC			"malloc fail ocurred"
 # define ERR_THREAD_CREATE	"thread creation fail"
 # define ERR_THREAD_JOIN	"thread join fail"
