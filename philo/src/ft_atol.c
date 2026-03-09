@@ -6,11 +6,11 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 15:25:13 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/19 15:25:20 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/03/09 21:04:47 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-static int	ft_isdigit(char c)
+int	ft_is_digit(char c)
 {
 	if (c < '0' || c > '9')
 		return (0);
@@ -36,7 +36,7 @@ long	ft_atol(char *str)
 	}
 	else if (str[i] == '+')
 		i++;
-	while (str[i] && ft_isdigit(str[i]))
+	while (str[i] && ft_is_digit(str[i]))
 	{
 		res *= 10;
 		res += str[i] - '0';
