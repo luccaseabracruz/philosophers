@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:20:20 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/03/09 22:51:06 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/03/10 16:33:16 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		ft_eat(t_philosopher *philo);
 void		ft_sleep(t_philosopher *philo);
 void		ft_think(t_philosopher *philo);
 int			ft_is_digit(char c);
-long		ft_atol(char *str);
+t_result	ft_safe_atol(char *str, long *num_addr);
 void		ft_cleanup_forks(t_simulation *sim);
 void		ft_cleanup_simulation(t_simulation *sim);
 long		ft_get_timestamp(t_sec_unit unit);
@@ -93,12 +93,12 @@ typedef struct s_philosopher
 
 typedef struct s_simulation
 {
-	int				philo_count;
+	long			philo_count;
 	long			start_timestamp;
 	long			time_to_die;
 	long			time_to_eat;
 	long			time_to_sleep;
-	int				meals_counter_target;
+	long			meals_counter_target;
 	t_philosopher	*philos;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_lock;
@@ -112,6 +112,8 @@ typedef struct s_simulation
 # define ERR_PRINT_LOCK_INIT	"ERROR: print_lock mutex init fail\n"
 # define ERR_PRINT_LOCK_LOCK	"ERROR: print_lock mutex lock failed\n"
 # define ERR_PRINT_LOCK_UNLOCK	"ERROR: print_lock mutex unlock failed\n"
+# define ERR_ATOL_INV_INPUT		"ERROR: invalid input\n"
+# define ERR_LONG_RANGE			"ERROR: input value out of LONG range\n"
 
 # define ERR_PREFIX			"ERROR"
 # define ERR_MISS_ARGS		"missing arguments"
