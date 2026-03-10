@@ -6,12 +6,13 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 14:32:56 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/03/10 16:34:19 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/03/10 20:10:35 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include <stdio.h>
+#include <unistd.h>
 
 void	ft_put_inv_input_error(t_simulation *sim, char *arg)
 {
@@ -20,8 +21,10 @@ void	ft_put_inv_input_error(t_simulation *sim, char *arg)
 	res = ft_lock_mutex(sim, &sim->print_lock, "ft_put_inv_input_error()");
 	if (res != SUCCESS)
 		return ;
-	printf("%s: invalid argument: '%s' — expected positive integer\n",
-		ERR_PREFIX, arg);
+	ft_put_str_fd(STDERR_FILENO, ERR_PREFIX);
+	ft_put_str_fd(STDERR_FILENO, ": invalid argument: '");
+	ft_put_str_fd(STDERR_FILENO, arg);
+	ft_put_str_fd(STDERR_FILENO, "' - expected positive number\n");
 	ft_unlock_mutex(sim, &sim->print_lock, "ft_put_inv_input_error()");
 }
 
