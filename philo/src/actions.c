@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 11:15:26 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/03/09 20:56:51 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/03/10 21:23:33 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_take_fork(t_philosopher *philo, t_fork_side side)
 		return ;
 	if (ft_is_running(philo->sim) == FALSE)
 		return ;
-	ft_print_action(philo, MSG_FORK, NULL);
+	ft_print_action(philo, TAKE_FORK, NULL);
 }
 
 void	ft_release_forks(t_philosopher *philo)
@@ -43,7 +43,7 @@ void	ft_eat(t_philosopher *philo)
 	if (ft_is_running(philo->sim) == FALSE)
 		return ;
 	philo->last_meal = ft_get_timestamp(MILISECONDS);
-	ft_print_action(philo, MSG_EAT, &philo->last_meal);
+	ft_print_action(philo, EAT, &philo->last_meal);
 	philo->meals_counter++;
 	ft_safe_usleep(philo->sim, philo->sim->time_to_eat);
 }
@@ -52,7 +52,7 @@ void	ft_sleep(t_philosopher *philo)
 {
 	if (ft_is_running(philo->sim) == FALSE)
 		return ;
-	ft_print_action(philo, MSG_SLEEP, NULL);
+	ft_print_action(philo, SLEEP, NULL);
 	ft_safe_usleep(philo->sim, philo->sim->time_to_sleep);
 }
 
@@ -60,5 +60,5 @@ void	ft_think(t_philosopher *philo)
 {
 	if (ft_is_running(philo->sim) == FALSE)
 		return ;
-	ft_print_action(philo, MSG_THINK, NULL);
+	ft_print_action(philo, THINK, NULL);
 }

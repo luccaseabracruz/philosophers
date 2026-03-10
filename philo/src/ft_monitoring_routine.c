@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 10:49:58 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/02/23 11:56:06 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/03/10 21:31:24 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	ft_check_all_philosophers(t_simulation *sim)
 		cur_philo = sim->philos + i;
 		if (ft_is_dead(cur_philo) == TRUE)
 		{
-			ft_print_action(cur_philo, MSG_DIE, NULL);
+			ft_print_action(cur_philo, DIE, NULL);
 			ft_set_running(sim, FALSE);
 			return ;
 		}

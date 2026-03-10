@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:20:20 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/03/10 16:33:16 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/03/10 21:31:43 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef enum e_bool				t_bool;
 typedef enum e_result			t_result;
 typedef enum e_sec_unit			t_sec_unit;
 typedef enum e_fork_side		t_fork_side;
+typedef enum e_action			t_action;
 
 // -------------------------------- FUNCTIONS ------------------------------- //
 
@@ -40,6 +41,7 @@ void		ft_set_running(t_simulation *sim, t_bool value);
 t_bool		ft_is_running(t_simulation *sim);
 void		*ft_monitoring_routine(void *arg);
 t_result	ft_parse_rules(int argc, char **argv, t_simulation *sim);
+void		ft_print_action(t_philosopher *p, t_action action, long *timestamp);
 void		*ft_routine(void *arg);
 void		ft_safe_usleep(t_simulation *sim, long time_ms);
 t_result	ft_start_simulation(t_simulation *sim);
@@ -49,7 +51,6 @@ int			ft_lock_mutex(t_simulation *s, pthread_mutex_t *mtx, char *fun);
 int			ft_unlock_mutex(t_simulation *s, pthread_mutex_t *mtx, char *fun);
 void		ft_put_str_fd(int fd, char *str);
 void		ft_put_error(t_simulation *sim, char *function, char *message);
-void		ft_print_action(t_philosopher *philo, char *msg, long *timestamp);
 
 // ------------------------------- ENUMS ------------------------------- //
 
@@ -77,6 +78,15 @@ typedef enum e_fork_side
 	RIGHT,
 	LEFT
 }	t_fork_side;
+
+typedef enum e_action
+{
+	TAKE_FORK,
+	EAT,
+	SLEEP,
+	THINK,
+	DIE
+}	t_action;
 
 // ------------------------------- STRUCTURES ------------------------------- //
 
@@ -127,17 +137,21 @@ typedef struct s_simulation
 # define ERR_MUTEX_LOCK		"mutex lock fail"
 # define ERR_MUTEX_UNLOCK	"mutex unlock fail"
 
-# define MSG_FORK	"has taken a fork"
-# define MSG_EAT	"is eating"
-# define MSG_SLEEP	"is sleeping"
-# define MSG_THINK	"is thinking"
-# define MSG_DIE	"died"
+# define MSG_TAKE_FORK	"has taken a fork"
+# define MSG_EAT		"is eating"
+# define MSG_SLEEP		"is sleeping"
+# define MSG_THINK		"is thinking"
+# define MSG_DIE		"died"
 
 # define MONITORING_INTERVAL_MS 1
 
-# define ORANGE	"\033[38;5;208m"
-# define BLUE	"\033[34m"
-# define TEAL	"\033[36m"
+# define GRAY	"\033[38;5;240m"
+# define WHITE	"\033[38;5;255m"
+# define AMBER	"\033[38;5;214m"
+# define PURPLE	"\033[38;5;99m"
+# define SKY_BLUE	"\033[38;5;75m"
+# define NEON_GREEN	"\033[38;5;48m"
+# define RED	"\033[38;5;196m"
 # define RESET	"\033[0m"
 
 #endif
