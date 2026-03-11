@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 10:05:04 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/03/11 10:15:01 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/03/11 10:23:57 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 # define STRUCTS_H
 
 # include "philosophers.h"
+# include "macros.h"
+# include <pthread.h>
+
+typedef struct s_simulation t_simulation;
 
 typedef struct s_philosopher
 {
