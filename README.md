@@ -84,19 +84,28 @@ This simulates 5 philosophers with 800ms until starvation, 200ms eating time,
 
 ```
 philo/
-├── src/						# Source files
+├── src/					# Source files
 │   ├── main.c					# Program entry point
 │   ├── actions.c				# Philosopher actions (eat, sleep, think)
 │   ├── ft_routine.c			# Main philosopher thread routine
 │   ├── ft_monitoring_routine.c	# Monitor for starvation
 │   ├── ft_init_simulation.c	# Simulation initialization
 │   ├── ft_start_simulation.c	# Simulation start
-│   ├── ft_parse_rules.c		# Argument parsing
+│   ├── ft_parse_rules.c		# Argument validation parsing
 │   ├── ft_cleanup_simulation.c	# Resource cleanup
-│   └── [other utilities]		# Helper functions
-├── include/
-│   └── philosophers.h			# Header with structures and declarations
-└── Makefile					# Build configuration
+│   ├── ft_get_timestamp.c		# Timestamp utilities
+│   ├── ft_is_running.c			# Simulation state checks
+│   ├── ft_print_action.c		# Action logging
+│   ├── ft_safe_atol.c			# Safe string to long conversion
+│   ├── ft_safe_usleep.c		# Safe microsecond sleep
+│   ├── mutex_utils.c			# Mutex utility functions
+│   └── print_utils.c			# Print utility functions
+├── include/				# Header files
+│   ├── philosophers.h			# Main header with structures and declarations
+│   ├── structs.h				# Data structure definitions
+│   ├── enums.h					# Enumeration definitions
+│   └── macros.h				# Macro definitions
+└── Makefile				# Build configuration
 ```
 
 ## Resources
