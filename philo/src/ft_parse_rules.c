@@ -6,7 +6,7 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 14:32:56 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/03/11 09:58:58 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/03/11 10:26:49 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static t_result	ft_validate_arg(t_simulation *sim, char *arg)
 		i++;
 	while (arg[i])
 	{
-		if (ft_is_digit(arg[i]) == TRUE)
+		if (ft_is_digit(arg[i]) == FALSE)
 		{
 			ft_put_inv_input_error(sim, arg);
 			return (FAILURE);
