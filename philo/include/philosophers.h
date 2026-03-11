@@ -6,25 +6,17 @@
 /*   By: lseabra- <lseabra-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:20:20 by lseabra-          #+#    #+#             */
-/*   Updated: 2026/03/10 21:31:43 by lseabra-         ###   ########.fr       */
+/*   Updated: 2026/03/11 10:08:14 by lseabra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
+# include "enums.h"
+# include "macros.h"
+# include "structs.h"
 # include <pthread.h>
-
-typedef struct s_simulation		t_simulation;
-typedef struct s_philosopher	t_philosopher;
-
-typedef enum e_bool				t_bool;
-typedef enum e_result			t_result;
-typedef enum e_sec_unit			t_sec_unit;
-typedef enum e_fork_side		t_fork_side;
-typedef enum e_action			t_action;
-
-// -------------------------------- FUNCTIONS ------------------------------- //
 
 void		ft_take_fork(t_philosopher *philo, t_fork_side side);
 void		ft_release_forks(t_philosopher *philo);
@@ -51,107 +43,5 @@ int			ft_lock_mutex(t_simulation *s, pthread_mutex_t *mtx, char *fun);
 int			ft_unlock_mutex(t_simulation *s, pthread_mutex_t *mtx, char *fun);
 void		ft_put_str_fd(int fd, char *str);
 void		ft_put_error(t_simulation *sim, char *function, char *message);
-
-// ------------------------------- ENUMS ------------------------------- //
-
-typedef enum e_bool
-{
-	FALSE = 0,
-	TRUE = 1
-}	t_bool;
-
-typedef enum e_result
-{
-	FAILURE = -1,
-	SUCCESS = 0
-}	t_result;
-
-typedef enum e_sec_unit
-{
-	SECONDS,
-	MILISECONDS,
-	MICROSECONDS,
-}	t_sec_unit;
-
-typedef enum e_fork_side
-{
-	RIGHT,
-	LEFT
-}	t_fork_side;
-
-typedef enum e_action
-{
-	TAKE_FORK,
-	EAT,
-	SLEEP,
-	THINK,
-	DIE
-}	t_action;
-
-// ------------------------------- STRUCTURES ------------------------------- //
-
-typedef struct s_philosopher
-{
-	int				id;
-	int				meals_counter;
-	long			last_meal;
-	pthread_t		thread;
-	pthread_mutex_t	*right_fork;
-	pthread_mutex_t	*left_fork;
-	t_simulation	*sim;
-}	t_philosopher;
-
-typedef struct s_simulation
-{
-	long			philo_count;
-	long			start_timestamp;
-	long			time_to_die;
-	long			time_to_eat;
-	long			time_to_sleep;
-	long			meals_counter_target;
-	t_philosopher	*philos;
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	print_lock;
-	pthread_mutex_t	running_lock;
-	pthread_t		monitoring_thread;
-	t_bool			running;
-}	t_simulation;
-
-// --------------------------------- MACROS --------------------------------- //
-
-# define ERR_PRINT_LOCK_INIT	"ERROR: print_lock mutex init fail\n"
-# define ERR_PRINT_LOCK_LOCK	"ERROR: print_lock mutex lock failed\n"
-# define ERR_PRINT_LOCK_UNLOCK	"ERROR: print_lock mutex unlock failed\n"
-# define ERR_ATOL_INV_INPUT		"ERROR: invalid input\n"
-# define ERR_LONG_RANGE			"ERROR: input value out of LONG range\n"
-
-# define ERR_PREFIX			"ERROR"
-# define ERR_MISS_ARGS		"missing arguments"
-# define ERR_MANY_ARGS		"too many arguments"
-# define ERR_INV_INPUT		"invalid input"
-# define ERR_MALLOC			"malloc fail ocurred"
-# define ERR_THREAD_CREATE	"thread creation fail"
-# define ERR_THREAD_JOIN	"thread join fail"
-# define ERR_MUTEX_INIT		"mutex init fail"
-# define ERR_MUTEX_DESTROY	"mutex destroy fail"
-# define ERR_MUTEX_LOCK		"mutex lock fail"
-# define ERR_MUTEX_UNLOCK	"mutex unlock fail"
-
-# define MSG_TAKE_FORK	"has taken a fork"
-# define MSG_EAT		"is eating"
-# define MSG_SLEEP		"is sleeping"
-# define MSG_THINK		"is thinking"
-# define MSG_DIE		"died"
-
-# define MONITORING_INTERVAL_MS 1
-
-# define GRAY	"\033[38;5;240m"
-# define WHITE	"\033[38;5;255m"
-# define AMBER	"\033[38;5;214m"
-# define PURPLE	"\033[38;5;99m"
-# define SKY_BLUE	"\033[38;5;75m"
-# define NEON_GREEN	"\033[38;5;48m"
-# define RED	"\033[38;5;196m"
-# define RESET	"\033[0m"
 
 #endif
