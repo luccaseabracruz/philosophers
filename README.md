@@ -164,6 +164,7 @@ once.
 
 ### References
 - [POSIX Threads Programming](https://computing.llnl.gov/tutorials/pthreads/)
+- [The Dining Philosophers Problem - Austin Walters](https://austingwalters.com/multithreading-dining-philosophers-problem/)
 - [Difference between Process and Thread - GeeksforGeeks](https://www.geeksforgeeks.org/operating-systems/difference-between-process-and-thread/)
 - [Deadlock - GeeksforGeeks](https://www.geeksforgeeks.org/deadlock-in-operating-system/)
 - [CodeVault - C Threads Playlist](https://www.youtube.com/playlist?list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2)
